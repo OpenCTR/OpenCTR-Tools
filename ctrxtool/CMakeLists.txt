@@ -15,6 +15,9 @@
 # along with OpenCTR.  If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
+# Beta version of new ctrxtool.
+# Not ready for production use yet.
+
 set(CTRXTOOL_VERSION_MAJOR 0)
 set(CTRXTOOL_VERSION_MINOR 0)
 set(CTRXTOOL_VERSION_PATCH 1)
@@ -94,10 +97,9 @@ if(WIN32)
 		FILE ctrxtool.cmake
 	)
 else()
-	# Win32 CMake find_package() searches <prefix>/lib/cmake
+	# UNIX CMake find_package() searches <prefix>/lib/cmake
 	install(EXPORT ctrxtool
 		DESTINATION lib/cmake
 		FILE ctrxtool.cmake
 	)
-
 endif()

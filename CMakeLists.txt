@@ -28,17 +28,15 @@ project(OpenCTR-Tools NONE)
 include(CMakeProjectSettings)
 include(CMakeProjectVersion)
 
-include(ExternalProject)
-
-# Enable 3dsxtool and smdhtool from 3dstools by default
-option(ENABLE_3DSTOOLS "Enable/Disable 3dstools (3dsxtool/smdhtool)" ON)
+# Enable 3dsxtool by default
+option(ENABLE_3DSXTOOL "Enable/Disable 3dsxtool" ON)
 # Disable ctrxtool by default
 option(ENABLE_CTRXTOOL "Enable/Disable ctrxtool" OFF)
 # Disable smdhtool by default
-option(ENABLE_SMDHTOOL "Enable/Disable ctrxtool" OFF)
+option(ENABLE_SMDHTOOL "Enable/Disable smdhtool" OFF)
 
-if(ENABLE_3DSTOOLS)
-	add_subdirectory(3dstools)
+if(ENABLE_3DSXTOOL)
+	add_subdirectory(3dsxtool)
 endif()
 
 if(ENABLE_CTRXTOOL)

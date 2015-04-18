@@ -1,10 +1,3 @@
-#.rst:
-# CMakeProjectSettings
-# --------------------
-# 
-# Project settings.
-# 
-
 ######################################################################
 # This file is part of OpenCTR.
 # 
@@ -22,7 +15,30 @@
 # along with OpenCTR.  If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
-# Explicitly enable C/C++.
-enable_language(C)
-enable_language(CXX)
+# Import of 3dsxtool from devkitPro/3dstools
 
+set(CMAKE_INCLUDE_CURRENT_DIR TRUE)
+
+add_executable(3dsxtool
+	3dsxtool.cpp
+)
+
+install(TARGETS 3dsxtool 
+	EXPORT 3dsxtool
+	RUNTIME DESTINATION bin
+)
+
+if(WIN32)
+	# Win32 CMake find_package() searches <prefix>/CMake/
+	install(EXPORT 3dsxtool
+		DESTINATION CMake
+		FILE ctrxtool.cmake
+	)
+else()
+	# UNIX CMake find_package() searches <prefix>/lib/cmake
+	install(EXPORT 3dsxtool
+		DESTINATION lib/cmake
+		FILE 3dsxtool.cmake
+	)
+
+endif()
