@@ -41,6 +41,8 @@ License
 OpenCTR is licensed under version 3 of the `GNU General Public License`_. 
 See `LICENSE`_ for terms.
 
+.. _GNU General Public License: http://www.gnu.org/licenses/gpl.html
+
 .. _LICENSE: ./LICENSE.txt
 
 .. |Building| image:: http://img.shields.io/travis/OpenCTR/OpenCTR/master.svg?style=flat
