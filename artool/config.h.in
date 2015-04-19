@@ -1,0 +1,84 @@
+/*
+ * config.h.in - Constants.
+ * 
+ * Copyright (C) 2015, Alex Shaw <alex.shaw.as@gmail.com>
+ * 
+ * This file is part of OpenCTR.
+ * 
+ * OpenCTR is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * OpenCTR is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with OpenCTR.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/* Package Name */
+#define PACKAGE_NAME "@PACKAGE_NAME@"
+
+/* Package Version */
+#define PACKAGE_VERSION "@PACKAGE_VERSION@"
+
+/* Package Version (Major) */
+#define PACKAGE_VERSION_MAJOR (@PACKAGE_VERSION_MAJOR@)
+
+/* Package Version (Minor) */
+#define PACKAGE_VERSION_MINOR (@PACKAGE_VERSION_MINOR@)
+
+/* Package Version (Patch) */
+#define PACKAGE_VERSION_PATCH (@PACKAGE_VERSION_PATCH@)
+
+/* Package Author */
+#define PACKAGE_AUTHOR "@PACKAGE_AUTHOR@"
+
+/* Package Description */
+#define PACKAGE_DESCRIPTION "@PACKAGE_DESCRIPTION@"
+
+/* Package URL */
+#define PACKAGE_URL "@PACKAGE_URL"
+
+/* Debug mode */
+#cmakedefine01 DEBUG
+
+/* assert.h */
+#cmakedefine HAVE_ASSERT_H
+
+/* errno.h */
+#cmakedefine HAVE_ERRNO_H
+
+/* fcntl.h */
+#cmakedefine HAVE_FCNTL_H
+
+/* gelf.h */
+#cmakedefine HAVE_GELF_H
+
+/* libelf.h */
+#cmakedefine HAVE_LIBELF_H
+
+/* libgen.h */
+#cmakedefine HAVE_LIBGEN_H
+
+/* stdint.h */
+#cmakedefine HAVE_STDINT_H
+
+/* stdio.h */
+#cmakedefine HAVE_STDIO_H
+
+/* stdlib.h */
+#cmakedefine HAVE_STDLIB_H
+
+/* string.h */
+#cmakedefine HAVE_STRING_H
+
+/* sys/stat.h */
+#cmakedefine HAVE_SYSSTAT_H
+
+/* unistd.h */
+#cmakedefine HAVE_UNISTD_H
+
