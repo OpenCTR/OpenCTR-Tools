@@ -66,7 +66,10 @@ function(CTR_ADD_RESOURCES OBJS)
 		endif()
 	endif()
 
+	# Clear the OBJS list.
 	set(${OBJS})
+
+	# Iterate each input file.
 	foreach(f ${ARTOOL_INPUT})
 		if(NOT IS_ABSOLUTE ${f})
 			get_filename_component(f "${f}" ABSOLUTE)
@@ -77,8 +80,23 @@ function(CTR_ADD_RESOURCES OBJS)
 			return()
 		endif()
 
-		get_filename_component(fname ${f} NAME)
+		get_filename_component(BASENAME ${f} NAME_WE)
+
+		list(APPEND ${OBJS} "${CMAKE_CURRENT_BINARY_DIR}/${BASENAME}.o")
+
+		add_custom_command(
+			OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${BASENAME}.o"
+			COMMAND ${ARTOOL_EXECUTABLE} "${f}" "${CMAKE_CURRENT_BINARY_DIR}/${BASENAME}.o"
+			DEPENDS "${f}" "${ARTOOL_EXECUTABLE}"
+			COMMENT "Generating ${BASENAME}.o"
+		)
 	endforeach()
+
+	# Let CMake know these files are generated at compile-time.
+	set_source_files_properties(${${OBJS}} PROPERTIES GENERATED TRUE)
+
+	# Pass the OBJS list back to the caller.
+	set(${OBJS} ${${OBJS}} PARENT_SCOPE)
 
 endfunction()
 
@@ -119,7 +137,6 @@ function(_ctr_write_header_file status error output_file input_files)
 		endif()
 
 		get_filename_component(fname ${f} NAME)
-		string(TOUPPER "${fname}" fname)
 		string(REPLACE "." "_" fname "${fname}")
 
 		file(APPEND ${output_file} "extern const unsigned char ${fname}\n")
