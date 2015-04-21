@@ -1,0 +1,96 @@
+#.rst:
+# 3dsxtool-config
+# ---------------
+# 
+# :command:`find_package` interface to `3dsxtool`.
+# 
+# Finds the ``3dsxtool`` executable, and creates the 
+# :command:`ctr_convert_binary` command.
+# 
+# .. command:: ctr_convert_binary
+# 
+#  Add a custom rule to convert ELF files into 3DSX after compiling.
+#  
+#  ::
+# 
+#    ctr_convert_binary(<TARGET> [OUTPUT <file>])
+# 
+#  ``TARGET``
+#   Target created with :command:`add_executable`. Must be an ARM 
+#   ELF Executable. Target will be converted from ELF to 3DSX.
+#  ``OUTPUT``
+#   By default, the output file is named ``<TARGET>.3dsx``. If 
+#   ``OUTPUT`` is given, the output file will be named 
+#   ``<file>``.
+# 
+
+######################################################################
+# This file is part of OpenCTR.
+# 
+# OpenCTR is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# OpenCTR is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with OpenCTR.  If not, see <http://www.gnu.org/licenses/>.
+######################################################################
+
+include(CMakeParseArguments)
+
+function(CTR_CONVERT_BINARY TGT)
+	set(BOOLEAN_OPTIONS)
+	set(SINGLE_OPTIONS OUTPUT)
+	set(MULTI_OPTIONS)
+
+	cmake_parse_arguments(3DSXTOOL "${BOOLEAN_OPTIONS}" "${SINGLE_OPTIONS}" "${MULTI_OPTIONS}" ${ARGN})
+
+	if(NOT TARGET ${TGT})
+		message(SEND_ERROR "Error: CTR_CONVERT_BINART target ${TGT} is not a target.")
+		return()
+	endif()
+
+	# Get full path to input file.
+	get_property(INPUT_FILE TARGET "${TGT}" PROPERTY LOCATION)
+
+	# Working directory
+	get_filename_component(BUILD_DIR "${INPUT_FILE}" DIRECTORY)
+
+	if(3DSXTOOL_OUTPUT)
+		set(OUTPUT_FILE "${3DSXTOOL_OUTPUT}")
+		if(NOT IS_ABSOLUTE ${OUTPUT_FILE})
+			get_filename_component(OUTPUT_FILE "${OUTPUT_FILE}" ABSOLUTE)
+		endif()
+	else()
+		get_filename_component(INPUT_FILENAME "${INPUT_FILE}" NAME_WE)
+		set(OUTPUT_FILE "${BUILD_DIR}/${INPUT_FILENAME}.3dsx")
+	endif()
+
+	get_filename_component(NAME "${OUTPUT_FILE}" NAME)
+
+	add_custom_command(TARGET ${TGT}
+		POST_BUILD
+		COMMAND ${3DSXTOOL_EXECUTABLE} ${INPUT_FILE} ${OUTPUT_FILE}
+		WORKING_DIRECTORY ${BUILD_DIR}
+		COMMENT "Generating ${NAME}"
+	)
+endfunction()
+
+@PACKAGE_INIT@
+
+set(CMAKE_CONFIG_PREFIX @PACKAGE_CONFIG_PREFIX@)
+
+include(${CMAKE_CONFIG_PREFIX}/3dsxtool-targets.cmake OPTIONAL)
+
+if(TARGET CTR::3dsxtool)
+	get_property(3DSXTOOL_EXECUTABLE TARGET CTR::3dsxtool PROPERTY LOCATION)
+endif()
+
+include(${CMAKE_ROOT}/Modules/FindPackageHandleStandardArgs.cmake)
+
+find_package_handle_standard_args(3dsxtool DEFAULT_MSG 3DSXTOOL_EXECUTABLE)

@@ -52,4 +52,3 @@ endif()
 if(ENABLE_SMDHTOOL)
 	add_subdirectory(smdhtool)
 endif()
-

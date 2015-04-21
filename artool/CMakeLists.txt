@@ -24,6 +24,7 @@ set(PACKAGE_AUTHOR "Alex Shaw")
 set(PACKAGE_DESCRIPTION "Convert resource files into ARM resources.")
 
 include(CheckIncludeFile)
+include(CMakePackageConfigHelpers)
 
 find_package(LibELF QUIET REQUIRED)
 
@@ -72,21 +73,33 @@ target_link_libraries(artool
 	${LIBELF_LIBRARY}
 )
 
+if(WIN32)
+	# Win32 CMake find_package() searches <prefix>/CMake/
+	set(CONFIG_PREFIX "CMake")
+else()
+	# UNIX CMake find_package() searches <prefix>/share/cmake
+	set(CONFIG_PREFIX "share/cmake")
+endif()
+
+configure_package_config_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/artool-config.cmake.in
+	${CMAKE_CURRENT_BINARY_DIR}/artool-config.cmake
+	INSTALL_DESTINATION ${CONFIG_PREFIX}
+	PATH_VARS CONFIG_PREFIX
+)
+
 install(TARGETS artool 
 	EXPORT artool
 	RUNTIME DESTINATION bin
 )
 
-if(WIN32)
-	# Win32 CMake find_package() searches <prefix>/CMake/
-	install(EXPORT artool
-		DESTINATION CMake
-		FILE artool.cmake
-	)
-else()
-	# UNIX CMake find_package() searches <prefix>/lib/cmake
-	install(EXPORT artool
-		DESTINATION lib/cmake
-		FILE artool.cmake
-	)
-endif()
+install(EXPORT artool
+	DESTINATION ${CONFIG_PREFIX}
+	FILE artool-targets.cmake
+	NAMESPACE CTR::
+)
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/artool-config.cmake
+	DESTINATION ${CONFIG_PREFIX}
+)
+

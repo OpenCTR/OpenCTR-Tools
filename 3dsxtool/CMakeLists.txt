@@ -16,6 +16,9 @@
 ######################################################################
 
 # Import of 3dsxtool from devkitPro/3dstools
+# Thanks to devkitPro for creating this.
+
+include(CMakePackageConfigHelpers)
 
 set(CMAKE_INCLUDE_CURRENT_DIR TRUE)
 
@@ -23,22 +26,33 @@ add_executable(3dsxtool
 	3dsxtool.cpp
 )
 
+if(WIN32)
+	# Win32 CMake find_package() searches <prefix>/CMake/
+	set(CONFIG_PREFIX "CMake")
+else()
+	# UNIX CMake find_package() searches <prefix>/share/cmake
+	set(CONFIG_PREFIX "share/cmake")
+endif()
+
+configure_package_config_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/3dsxtool-config.cmake.in
+	${CMAKE_CURRENT_BINARY_DIR}/3dsxtool-config.cmake
+	INSTALL_DESTINATION ${CONFIG_PREFIX}
+	PATH_VARS CONFIG_PREFIX
+)
+
 install(TARGETS 3dsxtool 
-	EXPORT 3dsxtool
+	EXPORT 3dsxtool 
 	RUNTIME DESTINATION bin
 )
 
-if(WIN32)
-	# Win32 CMake find_package() searches <prefix>/CMake/
-	install(EXPORT 3dsxtool
-		DESTINATION CMake
-		FILE ctrxtool.cmake
-	)
-else()
-	# UNIX CMake find_package() searches <prefix>/lib/cmake
-	install(EXPORT 3dsxtool
-		DESTINATION lib/cmake
-		FILE 3dsxtool.cmake
-	)
+install(EXPORT 3dsxtool 
+	DESTINATION ${CONFIG_PREFIX}
+	FILE 3dsxtool-targets.cmake
+	NAMESPACE CTR::
+)
 
-endif()
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/3dsxtool-config.cmake
+	DESTINATION ${CONFIG_PREFIX}
+)
+
