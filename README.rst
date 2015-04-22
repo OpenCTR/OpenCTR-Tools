@@ -31,7 +31,17 @@ https://openctr.github.io/
 Authors
 =======
 
-* Alex Shaw
+* Symbitic
+
+https://openctr.github.io/Authors.html
+
+=======
+Credits
+=======
+
+* devkitPro/smealum/fincs for 3dsxtool and smdhtool.
+
+https://openctr.github.io/Credits.html
 
 =======
 License

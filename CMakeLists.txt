@@ -32,10 +32,6 @@ include(CMakeProjectVersion)
 option(ENABLE_3DSXTOOL "Enable/Disable 3dsxtool" ON)
 # Enable artool by default
 option(ENABLE_ARTOOL "Enable/Disable artool" ON)
-# Disable ctrxtool by default
-option(ENABLE_CTRXTOOL "Enable/Disable ctrxtool" OFF)
-# Disable smdhtool by default
-option(ENABLE_SMDHTOOL "Enable/Disable smdhtool" OFF)
 
 if(ENABLE_3DSXTOOL)
 	add_subdirectory(3dsxtool)
@@ -43,12 +39,4 @@ endif()
 
 if(ENABLE_ARTOOL)
 	add_subdirectory(artool)
-endif()
-
-if(ENABLE_CTRXTOOL)
-	add_subdirectory(ctrxtool)
-endif()
-
-if(ENABLE_SMDHTOOL)
-	add_subdirectory(smdhtool)
 endif()
