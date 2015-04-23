@@ -139,12 +139,13 @@ function(_ctr_write_header_file status error output_file input_files)
 		get_filename_component(fname ${f} NAME)
 		string(REPLACE "." "_" fname "${fname}")
 
-		file(APPEND ${output_file} "extern const unsigned char ${fname}\n")
-		file(APPEND ${output_file} "extern const unsigned int ${fname}_size\n")
+		file(APPEND ${output_file} "extern const unsigned char ${fname}[];\n")
+		file(APPEND ${output_file} "extern const unsigned int ${fname}_size;\n")
 		file(APPEND ${output_file} "\n")
 	endforeach()
 
 	file(APPEND ${output_file} "#endif\n")
+	set(${status} TRUE PARENT_SCOPE)
 
 endfunction()
 
