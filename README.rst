@@ -54,7 +54,7 @@ See `LICENSE.txt`_ for terms.
    :alt: Latest Release
    :target: https://github.com/OpenCTR/OpenCTR-Tools/releases/latest
 
-.. |Issues| image:: https://img.shields.io/github/issues/OpenCTR/OpenCTR-Tools.svg
+.. |Issues| image:: https://img.shields.io/github/issues-raw/OpenCTR/OpenCTR-Tools.svg
    :alt: GitHub Issues
    :target: https://github.com/OpenCTR/OpenCTR-Tools/issues
 
