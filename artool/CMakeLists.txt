@@ -15,14 +15,6 @@
 # along with OpenCTR.  If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
-set(PACKAGE_NAME "artool")
-set(PACKAGE_VERSION_MAJOR 0)
-set(PACKAGE_VERSION_MINOR 0)
-set(PACKAGE_VERSION_PATCH 1)
-set(PACKAGE_VERSION "${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}.${PACKAGE_VERSION_PATCH}")
-set(PACKAGE_AUTHOR "Alex Shaw")
-set(PACKAGE_DESCRIPTION "Convert resource files into ARM resources.")
-
 include(CheckIncludeFile)
 include(CMakePackageConfigHelpers)
 
@@ -50,6 +42,14 @@ check_include_file("stdlib.h" HAVE_STDLIB_H)
 check_include_file("string.h" HAVE_STRING_H)
 check_include_file("sys/stat.h" HAVE_SYSSTAT_H)
 check_include_file("unistd.h" HAVE_UNISTD_H)
+
+set(PACKAGE_NAME "artool")
+set(PACKAGE_AUTHOR "Symbitic")
+set(PACKAGE_DESCRIPTION "Convert resource files into ARM resources.")
+set(PACKAGE_VERSION_MAJOR 1)
+set(PACKAGE_VERSION_MINOR 0)
+set(PACKAGE_VERSION_PATCH 0)
+set(PACKAGE_VERSION ${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}.${PACKAGE_VERSION_PATCH})
 
 configure_file(
 	${CMAKE_CURRENT_SOURCE_DIR}/config.h.in

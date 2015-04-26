@@ -15,22 +15,34 @@
 # along with OpenCTR.  If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
-# Import of 3dsxtool from devkitPro/3dstools
-# Thanks to devkitPro for creating this.
+# Import of 3dsxtool from https://github.com/devkitPro/3dstools
+# Thanks to fincs for creating this.
 
 include(CMakePackageConfigHelpers)
 
 set(CMAKE_INCLUDE_CURRENT_DIR TRUE)
 
+include_directories(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+set(PACKAGE_NAME "3dsxtool")
+set(PACKAGE_AUTHOR "fincs")
+set(PACKAGE_DESCRIPTION "Tool for converting ELF to 3DSX.")
+set(PACKAGE_VERSION_MAJOR 1)
+set(PACKAGE_VERSION_MINOR 0)
+set(PACKAGE_VERSION_PATCH 4)
+set(PACKAGE_VERSION ${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}.${PACKAGE_VERSION_PATCH})
+
 add_executable(3dsxtool
-	3dsxtool.cpp
+	src/3dsxtool.cpp
 )
 
 if(WIN32)
 	# Win32 CMake find_package() searches <prefix>/CMake/
 	set(CONFIG_PREFIX "CMake")
 else()
-	# UNIX CMake find_package() searches <prefix>/share/cmake
+	# Unix CMake find_package() searches <prefix>/share/cmake
 	set(CONFIG_PREFIX "share/cmake")
 endif()
 
@@ -55,4 +67,3 @@ install(EXPORT 3dsxtool
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/3dsxtool-config.cmake
 	DESTINATION ${CONFIG_PREFIX}
 )
-
