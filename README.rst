@@ -9,7 +9,7 @@ OpenCTR-Tools
 :repository: OpenCTR-Tools
 :license: GNU General Public License v3.0
 :owner: Symbitic
-:description: Tools used by OpenCTR.
+:description: Tools used by the OpenCTR SDK.
 
 ===========
 Description
