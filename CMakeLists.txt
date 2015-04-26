@@ -15,7 +15,7 @@
 # along with OpenCTR.  If not, see <http://www.gnu.org/licenses/>.
 ######################################################################
 
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 2.8)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
 
@@ -23,20 +23,7 @@ if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE "Debug" CACHE INTERNAL "Values: Debug, Release, RelWithDebInfo, MinSizeRel")
 endif()
 
-project(OpenCTR-Tools NONE)
+project(OpenCTR-Tools)
 
-include(CMakeProjectSettings)
-include(CMakeProjectVersion)
-
-# Enable 3dsxtool by default
-option(ENABLE_3DSXTOOL "Enable/Disable 3dsxtool" ON)
-# Enable artool by default
-option(ENABLE_ARTOOL "Enable/Disable artool" ON)
-
-if(ENABLE_3DSXTOOL)
-	add_subdirectory(3dsxtool)
-endif()
-
-if(ENABLE_ARTOOL)
-	add_subdirectory(artool)
-endif()
+add_subdirectory(3dsxtool)
+add_subdirectory(artool)

@@ -1,4 +1,4 @@
-|Building| |Coverage| |License|
+|Release| |Issues| |License|
 
 |Logo|
 
@@ -6,10 +6,10 @@
 OpenCTR-Tools
 =============
 
-:repository: `OpenCTR-Tools <https://github.com/OpenCTR/OpenCTR-Tools>`_
-:license: `GPL3 <http://www.gnu.org/licenses/gpl-3.0.html>`_
-:owner: `Alex Shaw <mailto:alex.shaw.as@gmail.com>`_
-:description: OpenCTR is a free, open-source, and cross-platform SDK for developing homebrew for the Nintendo 3DS.
+:repository: OpenCTR-Tools
+:license: GNU General Public License v3.0
+:owner: Symbitic
+:description: Tools used by OpenCTR.
 
 ===========
 Description
@@ -31,7 +31,7 @@ https://openctr.github.io/
 Authors
 =======
 
-* Symbitic
+* `Symbitic`_
 
 https://openctr.github.io/Authors.html
 
@@ -39,7 +39,7 @@ https://openctr.github.io/Authors.html
 Credits
 =======
 
-* devkitPro/smealum/fincs for 3dsxtool and smdhtool.
+* fincs for 3dsxtool.
 
 https://openctr.github.io/Credits.html
 
@@ -47,24 +47,27 @@ https://openctr.github.io/Credits.html
 License
 =======
 
-OpenCTR is licensed under version 3 of the `GNU General Public License`_. 
-See `LICENSE`_ for terms.
+OpenCTR is licensed under the `GNU General Public License v3.0`_. 
+See `LICENSE.txt`_ for terms.
 
-.. _GNU General Public License: http://www.gnu.org/licenses/gpl.html
+.. |Release| image:: https://img.shields.io/github/release/OpenCTR/OpenCTR-Tools.svg
+   :alt: Latest Release
+   :target: https://github.com/OpenCTR/OpenCTR-Tools/releases/latest
 
-.. _LICENSE: ./LICENSE.txt
+.. |Issues| image:: https://img.shields.io/github/issues/OpenCTR/OpenCTR-Tools.svg
+   :alt: GitHub Issues
+   :target: https://github.com/OpenCTR/OpenCTR-Tools/issues
 
-.. |Building| image:: http://img.shields.io/travis/OpenCTR/OpenCTR/master.svg?style=flat
-   :alt: TravisCI build status
-   :target: https://travis-ci.org/OpenCTR/OpenCTR
-
-.. |Coverage| image:: http://img.shields.io/coveralls/OpenCTR/OpenCTR/master.svg?style=flat
-   :alt: Coveralls.io coverage
-   :target: https://coveralls.io/r/OpenCTR/OpenCTR?branch=master
-
-.. |License| image:: http://img.shields.io/badge/license-gpl3-blue.svg?style=flat
-   :alt: GNU GPL3 License
-   :target: http://www.gnu.org/licenses/gpl-3.0.html
+.. |License| image:: https://img.shields.io/github/license/OpenCTR/OpenCTR-Tools.svg
+   :alt: GNU General Public License v3.0
+   :target: ./LICENSE.txt
 
 .. |Logo| image:: https://avatars2.githubusercontent.com/u/11789047
+   :alt: OpenCTR Logo
+   :target: https://github.com/OpenCTR
 
+.. _Symbitic: https://github.com/Symbitic
+
+.. _`GNU General Public License v3.0`: http://www.gnu.org/licenses/gpl.html
+
+.. _`LICENSE.txt`: ./LICENSE.txt
