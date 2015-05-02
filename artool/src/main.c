@@ -1,22 +1,23 @@
 /*
- * main.c - Program entry point.
+ * artool - Tool for converting binary resources.
  * 
- * Copyright 2015, Alex Shaw <alex.shaw.as@gmail.com>
+ * Copyright (C) 2015 Symbitic (and other contributing authors)
  * 
- * This file is part of OpenCTR.
+ * This file is part of OpenCTR-Tools.
  * 
- * OpenCTR is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * OpenCTR-Tools is free software: you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation, either version 3, or (at your option) 
+ * any later version.
  * 
- * OpenCTR is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * OpenCTR-Tools is distributed in the hope that it will be useful, but 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
  * GNU General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with OpenCTR.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with 
+ * OpenCTR-Tools; see the accompanying file LICENSE.txt for details. If not, 
+ * see <http://www.gnu.org/licenses/>.
  */
 
 #ifdef HAVE_CONFIG_H

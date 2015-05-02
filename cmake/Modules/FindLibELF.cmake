@@ -19,22 +19,27 @@
 #  ``TRUE`` if libelf has GElf interface.
 # 
 
-######################################################################
-# This file is part of OpenCTR.
+###############################################################################
+# OpenCTR-Tools - Tools used by the OpenCTR SDK.
 # 
-# OpenCTR is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# Copyright (C) 2015 Symbitic (and other contributing authors)
 # 
-# OpenCTR is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# This file is part of OpenCTR-Tools.
+# 
+# OpenCTR-Tools is free software: you can redistribute it and/or modify it 
+# under the terms of the GNU General Public License as published by the 
+# Free Software Foundation, either version 3, or (at your option) 
+# any later version.
+# 
+# OpenCTR-Tools is distributed in the hope that it will be useful, but 
+# WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
 # GNU General Public License for more details.
 # 
-# You should have received a copy of the GNU General Public License
-# along with OpenCTR.  If not, see <http://www.gnu.org/licenses/>.
-######################################################################
+# You should have received a copy of the GNU General Public License along with 
+# OpenCTR-Tools; see the accompanying file LICENSE.txt for details. If not, 
+# see <http://www.gnu.org/licenses/>.
+###############################################################################
 
 if(APPLE)
 	# Fink
