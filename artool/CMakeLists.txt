@@ -85,13 +85,6 @@ configure_package_config_file(
 	INSTALL_DESTINATION CMake
 )
 
-# Create artool-config-version.cmake
-write_basic_package_version_file(
-	${CMAKE_CURRENT_BINARY_DIR}/artool-config-version.cmake
-	VERSION ${PACKAGE_VERSION}
-	COMPATIBILITY AnyNewerVersion
-)
-
 # Install artool
 install(TARGETS artool 
 	EXPORT artool 
@@ -105,11 +98,7 @@ install(EXPORT artool
 	NAMESPACE CTR::
 )
 
-# Install artool-config.cmake and artool-config-version.cmake
-install(
-	FILES 
-		${CMAKE_CURRENT_BINARY_DIR}/artool-config.cmake 
-		${CMAKE_CURRENT_BINARY_DIR}/artool-config-version.cmake
-	DESTINATION 
-		${CMAKE_INSTALL_PREFIX}/CMake
+# Install artool-config.cmake
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/artool-config.cmake 
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/CMake
 )
