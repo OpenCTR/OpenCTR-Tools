@@ -50,13 +50,6 @@ configure_package_config_file(
 	INSTALL_DESTINATION CMake
 )
 
-# Create 3dsxtool-config-version.cmake
-write_basic_package_version_file(
-	${CMAKE_CURRENT_BINARY_DIR}/3dsxtool-config-version.cmake
-	VERSION ${PACKAGE_VERSION}
-	COMPATIBILITY SameMajorVersion
-)
-
 # Install 3dsxtool
 install(TARGETS 3dsxtool 
 	EXPORT 3dsxtool 
@@ -70,11 +63,7 @@ install(EXPORT 3dsxtool
 	NAMESPACE CTR::
 )
 
-# Install 3dsxtool-config.cmake and 3dsxtool-config-version.cmake
-install(
-	FILES 
-		${CMAKE_CURRENT_BINARY_DIR}/3dsxtool-config.cmake 
-		${CMAKE_CURRENT_BINARY_DIR}/3dsxtool-config-version.cmake
-	DESTINATION 
-		${CMAKE_INSTALL_PREFIX}/CMake
+# Install 3dsxtool-config.cmake
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/3dsxtool-config.cmake 
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/CMake
 )
