@@ -23,7 +23,7 @@
 # Import of 3dsxtool from https://github.com/devkitPro/3dstools
 # Thanks to fincs for creating this.
 
-include(CMakePackageConfigHelpers)
+include(CMakeExportPackage)
 
 set(CMAKE_INCLUDE_CURRENT_DIR TRUE)
 
@@ -34,27 +34,19 @@ include_directories(
 set(PACKAGE_NAME "3dsxtool")
 set(PACKAGE_AUTHOR "fincs")
 set(PACKAGE_DESCRIPTION "Tool for converting ELF to 3DSX.")
-set(PACKAGE_VERSION_MAJOR 1)
-set(PACKAGE_VERSION_MINOR 0)
-set(PACKAGE_VERSION_PATCH 4)
-set(PACKAGE_VERSION ${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}.${PACKAGE_VERSION_PATCH})
+set(PACKAGE_VERSION 1.0.4)
 
 add_executable(3dsxtool
 	src/3dsxtool.cpp
 )
 
-# Configure 3dsxtool-config.cmake.in
-configure_package_config_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/3dsxtool-config.cmake.in
-	${CMAKE_CURRENT_BINARY_DIR}/3dsxtool-config.cmake
-	INSTALL_DESTINATION CMake
-)
-
-# Create 3dsxtool-config-version.cmake
-write_basic_package_version_file(
-	${CMAKE_CURRENT_BINARY_DIR}/3dsxtool-config-version.cmake
+# Generate 3dsxtool-config.cmake and 3dsxtool-config-version.cmake
+cmake_export_package(
+	INPUT_FILE 3dsxtool-config.cmake.in
+	OUTPUT_FILE CMakeFiles/3dsxtool-config.cmake
+	VERSION_FILE CMakeFiles/3dsxtool-config-version.cmake
+	INSTALL_DESTINATION lib/cmake/3dsxtool
 	VERSION ${PACKAGE_VERSION}
-	COMPATIBILITY SameMajorVersion
 )
 
 # Install 3dsxtool
@@ -65,16 +57,15 @@ install(TARGETS 3dsxtool
 
 # Install the 3dsxtool CMake Export
 install(EXPORT 3dsxtool 
-	DESTINATION CMake
+	DESTINATION lib/cmake/3dsxtool
 	FILE 3dsxtool-targets.cmake
 	NAMESPACE CTR::
 )
 
 # Install 3dsxtool-config.cmake and 3dsxtool-config-version.cmake
-install(
-	FILES 
-		${CMAKE_CURRENT_BINARY_DIR}/3dsxtool-config.cmake 
-		${CMAKE_CURRENT_BINARY_DIR}/3dsxtool-config-version.cmake
-	DESTINATION 
-		${CMAKE_INSTALL_PREFIX}/CMake
+install(FILES 
+	${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/3dsxtool-config.cmake
+	${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/3dsxtool-config-version.cmake
+	DESTINATION lib/cmake/3dsxtool
 )
+

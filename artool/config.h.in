@@ -25,15 +25,6 @@
 /* Package Version */
 #define PACKAGE_VERSION "@PACKAGE_VERSION@"
 
-/* Package Version (Major) */
-#define PACKAGE_VERSION_MAJOR (@PACKAGE_VERSION_MAJOR@)
-
-/* Package Version (Minor) */
-#define PACKAGE_VERSION_MINOR (@PACKAGE_VERSION_MINOR@)
-
-/* Package Version (Patch) */
-#define PACKAGE_VERSION_PATCH (@PACKAGE_VERSION_PATCH@)
-
 /* Package Author */
 #define PACKAGE_AUTHOR "@PACKAGE_AUTHOR@"
 

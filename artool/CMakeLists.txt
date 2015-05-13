@@ -21,7 +21,7 @@
 ###############################################################################
 
 include(CheckIncludeFile)
-include(CMakePackageConfigHelpers)
+include(CMakeExportPackage)
 
 find_package(LibELF QUIET REQUIRED)
 
@@ -51,10 +51,7 @@ check_include_file("unistd.h" HAVE_UNISTD_H)
 set(PACKAGE_NAME "artool")
 set(PACKAGE_AUTHOR "Symbitic")
 set(PACKAGE_DESCRIPTION "Convert resource files into ARM resources.")
-set(PACKAGE_VERSION_MAJOR 1)
-set(PACKAGE_VERSION_MINOR 0)
-set(PACKAGE_VERSION_PATCH 0)
-set(PACKAGE_VERSION ${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}.${PACKAGE_VERSION_PATCH})
+set(PACKAGE_VERSION 1.0.0)
 
 configure_file(
 	${CMAKE_CURRENT_SOURCE_DIR}/config.h.in
@@ -78,18 +75,13 @@ target_link_libraries(artool
 	${LIBELF_LIBRARY}
 )
 
-# Configure artool-config.cmake.in
-configure_package_config_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/artool-config.cmake.in
-	${CMAKE_CURRENT_BINARY_DIR}/artool-config.cmake
-	INSTALL_DESTINATION CMake
-)
-
-# Create artool-config-version.cmake
-write_basic_package_version_file(
-	${CMAKE_CURRENT_BINARY_DIR}/artool-config-version.cmake
+# Generate artool-config.cmake and artool-config-version.cmake
+cmake_export_package(
+	INPUT_FILE artool-config.cmake.in
+	OUTPUT_FILE CMakeFiles/artool-config.cmake
+	VERSION_FILE CMakeFiles/artool-config-version.cmake
+	INSTALL_DESTINATION lib/cmake/artool
 	VERSION ${PACKAGE_VERSION}
-	COMPATIBILITY SameMajorVersion
 )
 
 # Install artool
@@ -100,16 +92,14 @@ install(TARGETS artool
 
 # Install the artool CMake Export
 install(EXPORT artool 
-	DESTINATION CMake
+	DESTINATION lib/cmake/artool
 	FILE artool-targets.cmake
 	NAMESPACE CTR::
 )
 
-# Install artool-config.cmake and artool-config-version.cmake
-install(
-	FILES 
-		${CMAKE_CURRENT_BINARY_DIR}/artool-config.cmake 
-		${CMAKE_CURRENT_BINARY_DIR}/artool-config-version.cmake
-	DESTINATION 
-		${CMAKE_INSTALL_PREFIX}/CMake
+# Install 3dsxtool-config.cmake and 3dsxtool-config-version.cmake
+install(FILES 
+	${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/artool-config.cmake
+	${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/artool-config-version.cmake
+	DESTINATION lib/cmake/artool
 )
