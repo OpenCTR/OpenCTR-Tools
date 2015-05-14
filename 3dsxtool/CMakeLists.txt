@@ -45,7 +45,7 @@ cmake_export_package(
 	INPUT_FILE 3dsxtool-config.cmake.in
 	OUTPUT_FILE CMakeFiles/3dsxtool-config.cmake
 	VERSION_FILE CMakeFiles/3dsxtool-config-version.cmake
-	INSTALL_DESTINATION lib/cmake/3dsxtool
+	INSTALL_DESTINATION cmake
 	VERSION ${PACKAGE_VERSION}
 )
 
@@ -57,7 +57,7 @@ install(TARGETS 3dsxtool
 
 # Install the 3dsxtool CMake Export
 install(EXPORT 3dsxtool 
-	DESTINATION lib/cmake/3dsxtool
+	DESTINATION cmake
 	FILE 3dsxtool-targets.cmake
 	NAMESPACE CTR::
 )
@@ -66,6 +66,6 @@ install(EXPORT 3dsxtool
 install(FILES 
 	${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/3dsxtool-config.cmake
 	${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/3dsxtool-config-version.cmake
-	DESTINATION lib/cmake/3dsxtool
+	DESTINATION cmake
 )
 

@@ -80,7 +80,7 @@ cmake_export_package(
 	INPUT_FILE artool-config.cmake.in
 	OUTPUT_FILE CMakeFiles/artool-config.cmake
 	VERSION_FILE CMakeFiles/artool-config-version.cmake
-	INSTALL_DESTINATION lib/cmake/artool
+	INSTALL_DESTINATION cmake
 	VERSION ${PACKAGE_VERSION}
 )
 
@@ -92,7 +92,7 @@ install(TARGETS artool
 
 # Install the artool CMake Export
 install(EXPORT artool 
-	DESTINATION lib/cmake/artool
+	DESTINATION cmake
 	FILE artool-targets.cmake
 	NAMESPACE CTR::
 )
@@ -101,5 +101,5 @@ install(EXPORT artool
 install(FILES 
 	${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/artool-config.cmake
 	${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/artool-config-version.cmake
-	DESTINATION lib/cmake/artool
+	DESTINATION cmake
 )
