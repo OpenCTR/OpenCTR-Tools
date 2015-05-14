@@ -75,7 +75,6 @@ target_link_libraries(artool
 	${LIBELF_LIBRARY}
 )
 
-<<<<<<< HEAD
 # Generate artool-config.cmake and artool-config-version.cmake
 cmake_export_package(
 	INPUT_FILE artool-config.cmake.in
@@ -83,13 +82,6 @@ cmake_export_package(
 	VERSION_FILE CMakeFiles/artool-config-version.cmake
 	INSTALL_DESTINATION lib/cmake/artool
 	VERSION ${PACKAGE_VERSION}
-=======
-# Configure artool-config.cmake.in
-configure_package_config_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/artool-config.cmake.in
-	${CMAKE_CURRENT_BINARY_DIR}/artool-config.cmake
-	INSTALL_DESTINATION CMake
->>>>>>> e1fc6cee8ed9e9bcad7884a2f03b22c79318c068
 )
 
 # Install artool
@@ -105,15 +97,9 @@ install(EXPORT artool
 	NAMESPACE CTR::
 )
 
-<<<<<<< HEAD
 # Install 3dsxtool-config.cmake and 3dsxtool-config-version.cmake
 install(FILES 
 	${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/artool-config.cmake
 	${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/artool-config-version.cmake
 	DESTINATION lib/cmake/artool
-=======
-# Install artool-config.cmake
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/artool-config.cmake 
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/CMake
->>>>>>> e1fc6cee8ed9e9bcad7884a2f03b22c79318c068
 )
