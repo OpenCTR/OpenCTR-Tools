@@ -23,7 +23,7 @@
 # Import of 3dsxtool from https://github.com/devkitPro/3dstools
 # Thanks to fincs for creating this.
 
-include(CMakeExportPackage)
+include(CMakePackageConfigHelpers)
 
 set(CMAKE_INCLUDE_CURRENT_DIR TRUE)
 
@@ -40,13 +40,17 @@ add_executable(3dsxtool
 	src/3dsxtool.cpp
 )
 
-# Generate 3dsxtool-config.cmake and 3dsxtool-config-version.cmake
-cmake_export_package(
-	INPUT_FILE 3dsxtool-config.cmake.in
-	OUTPUT_FILE CMakeFiles/3dsxtool-config.cmake
-	VERSION_FILE CMakeFiles/3dsxtool-config-version.cmake
+# Configure 3dsxtool-config.cmake
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/3dsxtool-config.cmake.in
+	${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/3dsxtool-config.cmake
 	INSTALL_DESTINATION cmake
+)
+
+# Create 3dsxtool-config-version.cmake
+write_basic_package_version_file(
+	${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/3dsxtool-config-version.cmake
 	VERSION ${PACKAGE_VERSION}
+	COMPATIBILITY AnyNewerVersion
 )
 
 # Install 3dsxtool

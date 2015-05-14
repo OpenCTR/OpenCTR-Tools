@@ -21,7 +21,7 @@
 ###############################################################################
 
 include(CheckIncludeFile)
-include(CMakeExportPackage)
+include(CMakePackageConfigHelpers)
 
 find_package(LibELF QUIET REQUIRED)
 
@@ -75,13 +75,17 @@ target_link_libraries(artool
 	${LIBELF_LIBRARY}
 )
 
-# Generate artool-config.cmake and artool-config-version.cmake
-cmake_export_package(
-	INPUT_FILE artool-config.cmake.in
-	OUTPUT_FILE CMakeFiles/artool-config.cmake
-	VERSION_FILE CMakeFiles/artool-config-version.cmake
+# Configure artool-config.cmake
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/artool-config.cmake.in
+	${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/artool-config.cmake
 	INSTALL_DESTINATION cmake
+)
+
+# Create artool-config-version.cmake
+write_basic_package_version_file(
+	${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/artool-config-version.cmake
 	VERSION ${PACKAGE_VERSION}
+	COMPATIBILITY AnyNewerVersion
 )
 
 # Install artool
