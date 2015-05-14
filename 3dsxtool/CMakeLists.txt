@@ -43,7 +43,7 @@ add_executable(3dsxtool
 # Configure 3dsxtool-config.cmake
 configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/3dsxtool-config.cmake.in
 	${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/3dsxtool-config.cmake
-	INSTALL_DESTINATION cmake
+	INSTALL_DESTINATION CMake
 )
 
 # Install 3dsxtool
@@ -54,13 +54,13 @@ install(TARGETS 3dsxtool
 
 # Install the 3dsxtool CMake Export
 install(EXPORT 3dsxtool 
-	DESTINATION cmake
+	DESTINATION CMake
 	FILE 3dsxtool-targets.cmake
 	NAMESPACE CTR::
 )
 
 # Install 3dsxtool-config.cmake
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/3dsxtool-config.cmake
-	DESTINATION cmake
+	DESTINATION CMake
 )
 
