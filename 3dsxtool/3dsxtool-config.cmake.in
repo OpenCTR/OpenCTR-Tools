@@ -43,6 +43,8 @@
 # along with OpenCTR-Tools. If not, see <http://www.gnu.org/licenses/>. 
 #########################################################################
 
+cmake_minimum_required(VERSION 3.0.0)
+
 include(CMakeParseArguments)
 
 function(CTR_CONVERT_BINARY TGT)
@@ -57,11 +59,8 @@ function(CTR_CONVERT_BINARY TGT)
 		return()
 	endif()
 
-	# Get full path to input file.
-	get_property(INPUT_FILE TARGET "${TGT}" PROPERTY LOCATION)
-
 	# Working directory
-	get_filename_component(BUILD_DIR "${INPUT_FILE}" DIRECTORY)
+	get_filename_component(BUILD_DIR "$<TARGET_FILE:${TGT}>" DIRECTORY)
 
 	if(3DSXTOOL_OUTPUT)
 		set(OUTPUT_FILE "${3DSXTOOL_OUTPUT}")
@@ -69,7 +68,7 @@ function(CTR_CONVERT_BINARY TGT)
 			get_filename_component(OUTPUT_FILE "${OUTPUT_FILE}" ABSOLUTE)
 		endif()
 	else()
-		get_filename_component(INPUT_FILENAME "${INPUT_FILE}" NAME_WE)
+		get_filename_component(INPUT_FILENAME "$<TARGET_FILE:${TGT}>" NAME_WE)
 		set(OUTPUT_FILE "${BUILD_DIR}/${INPUT_FILENAME}.3dsx")
 	endif()
 
@@ -77,7 +76,7 @@ function(CTR_CONVERT_BINARY TGT)
 
 	add_custom_command(TARGET ${TGT}
 		POST_BUILD
-		COMMAND ${3DSXTOOL_EXECUTABLE} ${INPUT_FILE} ${OUTPUT_FILE}
+		COMMAND ${3DSXTOOL_EXECUTABLE} $<TARGET_FILE:${TGT}> ${OUTPUT_FILE}
 		WORKING_DIRECTORY ${BUILD_DIR}
 		COMMENT "Generating ${NAME}"
 	)
