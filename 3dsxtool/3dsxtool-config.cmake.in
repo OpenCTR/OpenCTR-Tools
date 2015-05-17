@@ -20,31 +20,28 @@
 #   ELF Executable. Target will be converted from ELF to 3DSX.
 #  ``OUTPUT``
 #   By default, the output file is named ``<TARGET>.3dsx``. If 
-#   ``OUTPUT`` is given, the output file will be named 
-#   ``<file>``.
+#   ``OUTPUT`` is given, the output file will be named ``<file>``.
 # 
 
-###############################################################################
-# OpenCTR-Tools - Tools used by the OpenCTR SDK.
+#########################################################################
+# OpenCTR-Tools - Tools used in the OpenCTR SDK.
 # 
-# Copyright (C) 2015 Symbitic (and other contributing authors)
+# Copyright (C) 2015 The OpenCTR Project. 
 # 
-# This file is part of OpenCTR-Tools.
+# This file is part of OpenCTR-Tools. 
 # 
-# OpenCTR-Tools is free software: you can redistribute it and/or modify it 
-# under the terms of the GNU General Public License as published by the 
-# Free Software Foundation, either version 3, or (at your option) 
-# any later version.
+# OpenCTR-Tools is free software: you can redistribute it and/or modify 
+# it under the terms of the GNU General Public License version 3 as 
+# published by the Free Software Foundation.
 # 
-# OpenCTR-Tools is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
+# OpenCTR-Tools is distributed in the hope that it will be useful, 
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 # 
-# You should have received a copy of the GNU General Public License along with 
-# OpenCTR-Tools; see the accompanying file LICENSE.txt for details. If not, 
-# see <http://www.gnu.org/licenses/>.
-###############################################################################
+# You should have received a copy of the GNU General Public License 
+# along with OpenCTR-Tools. If not, see <http://www.gnu.org/licenses/>. 
+#########################################################################
 
 include(CMakeParseArguments)
 
