@@ -63,25 +63,18 @@ function(CTR_CONVERT_BINARY TGT)
 	get_filename_component(BUILD_DIR "$<TARGET_FILE:${TGT}>" DIRECTORY)
 
 	if(3DSXTOOL_OUTPUT)
-		set(OUTPUT_FILE "${3DSXTOOL_OUTPUT}")
-		if(NOT IS_ABSOLUTE ${OUTPUT_FILE})
-			get_filename_component(OUTPUT_FILE "${OUTPUT_FILE}" ABSOLUTE)
+		if(NOT IS_ABSOLUTE ${3DSXTOOL_OUTPUT})
+			get_filename_component(3DSXTOOL_OUTPUT "${3DSXTOOL_OUTPUT}" ABSOLUTE)
 		endif()
 	else()
-		get_filename_component(INPUT_FILENAME "$<TARGET_FILE:${TGT}>" NAME_WE)
-		set(OUTPUT_FILE "${BUILD_DIR}/${INPUT_FILENAME}.3dsx")
+		set(3DSXTOOL_OUTPUT "$<TARGET_FILE_DIR:${TGT}>/$<TARGET_FILE_NAME:${TGT}>.3dsx")
 	endif()
-
-	message(STATUS "Output file: ${OUTPUT_FILE}")
-	message(STATUS "Name: ${INPUT_FILENAME}")
-
-	get_filename_component(NAME "${OUTPUT_FILE}" NAME)
 
 	add_custom_command(TARGET ${TGT}
 		POST_BUILD
-		COMMAND ${3DSXTOOL_EXECUTABLE} $<TARGET_FILE:${TGT}> ${OUTPUT_FILE}
-		WORKING_DIRECTORY ${BUILD_DIR}
-		COMMENT "Generating ${NAME}"
+		COMMAND ${3DSXTOOL_EXECUTABLE} $<TARGET_FILE:${TGT}> ${3DSXTOOL_OUTPUT}
+		WORKING_DIRECTORY $<TARGET_FILE_DIR:${TGT}>
+		COMMENT "Generating ${TGT}.3dsx"
 	)
 endfunction()
 
