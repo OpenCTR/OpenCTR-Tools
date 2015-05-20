@@ -59,24 +59,19 @@ function(CTR_CONVERT_BINARY TGT)
 		return()
 	endif()
 
+	if(NOT 3DSXTOOL_OUTPUT)
+		set(3DSXTOOL_OUTPUT "$<TARGET_FILE_DIR:${TGT}>/${TGT}.3dsx")
+	endif()
+
 	# Working directory
 	get_filename_component(BUILD_DIR "$<TARGET_FILE:${TGT}>" DIRECTORY)
 
-	if(3DSXTOOL_OUTPUT)
-		add_custom_command(TARGET ${TGT}
-			POST_BUILD
-			COMMAND ${3DSXTOOL_EXECUTABLE} $<TARGET_FILE:${TGT}> ${3DSXTOOL_OUTPUT}
-			WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-			COMMENT "Generating ${TGT}.3dsx"
-		)
-	else()
-		add_custom_command(TARGET ${TGT}
-			POST_BUILD
-			COMMAND ${3DSXTOOL_EXECUTABLE} $<TARGET_FILE:${TGT}> $<TARGET_FILE_DIR:${TGT}>/${TGT}.3dsx
-			WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-			COMMENT "Generating ${TGT}.3dsx"
-		)
-	endif()
+	add_custom_command(TARGET ${TGT}
+		POST_BUILD
+		COMMAND ${3DSXTOOL_EXECUTABLE} $<TARGET_FILE:${TGT}> ${3DSXTOOL_OUTPUT}
+		WORKING_DIRECTORY ${BUILD_DIR}
+		COMMENT "Generating ${TGT}.3dsx"
+	)
 endfunction()
 
 set(3DSXTOOL_VERSION @PACKAGE_VERSION@)
