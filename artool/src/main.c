@@ -406,8 +406,14 @@ int main(int argc, char **argv) {
 	sd->d_align = 4;
 
 	/* Create symbol name buffers. */
-	asprintf(&symbol_name, "%s", name);
-	asprintf(&symbol_size, "%s_size", name);
+	const int name_len = strlen(name) + 1;
+	const int size_len = strlen(name) + strlen("_size") + 1;
+	symbol_name = (char*)malloc(name_len);
+	symbol_size = (char*)malloc(size_len);
+	memset(symbol_name, 0x00, name_len);
+	memset(symbol_size, 0x00, size_len);
+	snprintf(symbol_name, name_len, "%s", name);
+	snprintf(symbol_size, size_len, "%s_size", name);
 
 	/* Create symbol for input file. */
 	symbols[1].st_name = make_string(&symnames, symbol_name);
