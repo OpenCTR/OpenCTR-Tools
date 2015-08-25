@@ -58,6 +58,10 @@
 #include <libgen.h>
 #endif
 
+#ifdef HAVE_GETOPT_H
+#include <getopt.h>
+#endif
+
 #ifdef HAVE_LIBELF_H
 #include "libelf.h"
 #endif
@@ -146,7 +150,7 @@ static void cleanup(Elf* elf, int ifd, int ofd, char* name, char* buffer, char* 
 	if(ofd) {
 		ret = close(ofd);
 		if(ret == -1) {
-			fprintf(stderr, "Error closing input file: %s\n", elf_errmsg(-1));
+			fprintf(stderr, "Error closing output file: %s\n", elf_errmsg(-1));
 		}
 	}
 
@@ -171,7 +175,7 @@ static void cleanup(Elf* elf, int ifd, int ofd, char* name, char* buffer, char* 
 	}
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char *argv[]) {
 	int i;
 	int ifd = 0;
 	int ofd = 0;
@@ -194,15 +198,55 @@ int main(int argc, char **argv) {
 	int ret;
 	char* symbol_name = NULL;
 	char* symbol_size = NULL;
+    const struct option options[] = {
+        { "help", no_argument, NULL, 'h' },
+        { "symbol-name",  required_argument, NULL, 's' },
+        { NULL, 0, NULL, 0 }
+    };
+	uint8_t show_help = 0;
+	int ch;
+
+	/* TODO: Allow without getopt(). */
+
+	/* Parse the command-line parameters. */
+    while(1) {
+        ch = getopt_long(argc, argv, "hs:", options, NULL);
+        if(ch == -1) {
+            break;
+        }
+        switch(ch) {
+            case 'h':
+                show_help = 1;
+                break;
+            case 's':
+				name = strdup(optarg);
+                break;
+            default:
+                break;
+        }
+    }
 
 	/* Make sure enough parameters were given. */
-	if(argc != 3) {
+    if((argc - optind) != 2) {
+		fprintf(stderr, "Error: input and output files must be given\n");
+        show_help = 1;
+    }
+
+	/* Print the help message.. */
+	if(show_help == 1) {
 		printf("%s %s - %s\n", PACKAGE_NAME, PACKAGE_VERSION, PACKAGE_DESCRIPTION);
 		printf("\n");
 		printf("Usage:\n");
-		printf("  %s <input.bin> <output.o>\n", argv[0]);
-		exit(EXIT_FAILURE);
+		printf("  %s [params] <input.ttf> <output.o>\n", argv[0]);
+		printf("\n");
+		printf("Parameters:\n");
+		printf("  --help, -h                       Print this help information\n");
+		printf("  --symbol-name=<NAME>, -s <NAME>  Use <NAME> and <NAME>_size as the symbol names\n");
+		exit(EXIT_SUCCESS);
 	}
+
+    argc -= optind;
+    argv += optind;
 
 	/* Initialize symbols */
 	memset(&symbols, 0x00, sizeof(symbols));
@@ -217,8 +261,12 @@ int main(int argc, char **argv) {
 	symnames.strings[0] = '\0';
 	symnames.nstrings = 1;
 
-	/* Construct the symbol name as a string. */
-	name = strdup(basename(argv[1]));
+	/* If symbol name was not given by user, create it from filename. */
+	if(name == NULL) {
+		name = strdup(basename(argv[0]));
+	}
+
+	/* Replace any unusable characters in the symbol name. */
 	for(i=0; i<strlen(name); i++) {
 		if(name[i] == '.') {
 			name[i] = '_';
@@ -233,9 +281,9 @@ int main(int argc, char **argv) {
 	}
 
 	/* Open the input file */
-	ifd = open(argv[1], O_RDONLY);
+	ifd = open(argv[0], O_RDONLY);
 	if(ifd == -1) {
-		fprintf(stderr, "Error opening \"%s\" for reading: %s", argv[1], strerror(errno));
+		fprintf(stderr, "Error opening \"%s\" for reading: %s", argv[0], strerror(errno));
 		cleanup(elf, ifd, ofd, name, buffer, symnames.strings, scnnames.strings);
 		exit(EXIT_FAILURE);
 	}
@@ -243,7 +291,7 @@ int main(int argc, char **argv) {
 	/* Find the input file size. */
 	ret = fstat(ifd, &st);
 	if(ret == -1) {
-		fprintf(stderr, "Error using \"%s\" as input file: %s\n", argv[1], strerror(errno));
+		fprintf(stderr, "Error using \"%s\" as input file: %s\n", argv[0], strerror(errno));
 		cleanup(elf, ifd, ofd, name, buffer, symnames.strings, scnnames.strings);
 		exit(EXIT_FAILURE);
 	}
@@ -263,22 +311,22 @@ int main(int argc, char **argv) {
 	/* Read the input file into the memory buffer. */
 	ret = read(ifd, buffer, buffer_size);
 	if(ret != buffer_size) {
-		fprintf(stderr, "Error reading \"%s\" as input file: %s\n", argv[1], strerror(errno));
+		fprintf(stderr, "Error reading \"%s\" as input file: %s\n", argv[0], strerror(errno));
 		cleanup(elf, ifd, ofd, name, buffer, symnames.strings, scnnames.strings);
 		exit(EXIT_FAILURE);
 	}
 
 	/* Open the output file */
-	ofd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	ofd = open(argv[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if(ofd == -1) {
-		fprintf(stderr, "Error opening \"%s\" for writing: %s", argv[2], strerror(errno));
+		fprintf(stderr, "Error opening \"%s\" for writing: %s", argv[1], strerror(errno));
 		exit(EXIT_FAILURE);
 	}
 
 	/* Create the output ELF file. */
 	elf = elf_begin(ofd, ELF_C_WRITE, NULL);
 	if(elf == NULL) {
-		fprintf(stderr, "Error using \"%s\" as output ELF file: %s\n", argv[2], elf_errmsg(-1));
+		fprintf(stderr, "Error using \"%s\" as output ELF file: %s\n", argv[1], elf_errmsg(-1));
 		cleanup(elf, ifd, ofd, name, buffer, symnames.strings, scnnames.strings);
 		exit(EXIT_FAILURE);
 	}

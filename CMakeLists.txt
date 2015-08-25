@@ -18,13 +18,10 @@
 # along with OpenCTR-Tools. If not, see <http://www.gnu.org/licenses/>. 
 #########################################################################
 
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.0.0 FATAL_ERROR)
 
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CMake)
-
-if(NOT CMAKE_BUILD_TYPE)
-	set(CMAKE_BUILD_TYPE "Debug" CACHE INTERNAL "Build configuration")
-endif()
+set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/CMake")
+set(CMAKE_BUILD_TYPE_INIT "Debug" CACHE INTERNAL "Build configuration")
 
 project(OpenCTR-Tools)
 

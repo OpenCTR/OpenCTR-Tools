@@ -45,6 +45,9 @@
 /* fcntl.h */
 #cmakedefine HAVE_FCNTL_H
 
+/* getopt.h */
+#cmakedefine HAVE_GETOPT_H
+
 /* gelf.h */
 #cmakedefine HAVE_GELF_H
 
@@ -71,4 +74,10 @@
 
 /* unistd.h */
 #cmakedefine HAVE_UNISTD_H
+
+/* getopt(3) */
+#cmakedefine HAVE_GETOPT_SHORT
+
+/* getopt_long(3) */
+#cmakedefine HAVE_GETOPT_LONG
 

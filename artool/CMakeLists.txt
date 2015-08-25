@@ -18,6 +18,7 @@
 # along with OpenCTR-Tools. If not, see <http://www.gnu.org/licenses/>. 
 #########################################################################
 
+include(CheckFunctionExists)
 include(CheckIncludeFile)
 include(CMakePackageConfigHelpers)
 
@@ -38,6 +39,7 @@ endif()
 check_include_file("assert.h" HAVE_ASSERT_H)
 check_include_file("errno.h" HAVE_ERRNO_H)
 check_include_file("fcntl.h" HAVE_FCNTL_H)
+check_include_file("getopt.h" HAVE_GETOPT_H)
 check_include_file("libgen.h" HAVE_LIBGEN_H)
 check_include_file("stdint.h" HAVE_STDINT_H)
 check_include_file("stdio.h" HAVE_STDIO_H)
@@ -45,6 +47,8 @@ check_include_file("stdlib.h" HAVE_STDLIB_H)
 check_include_file("string.h" HAVE_STRING_H)
 check_include_file("sys/stat.h" HAVE_SYSSTAT_H)
 check_include_file("unistd.h" HAVE_UNISTD_H)
+check_function_exists("getopt" HAVE_GETOPT_SHORT)
+check_function_exists("getopt_long" HAVE_GETOPT_LONG)
 
 set(PACKAGE_NAME "artool")
 set(PACKAGE_AUTHOR "Symbitic")
