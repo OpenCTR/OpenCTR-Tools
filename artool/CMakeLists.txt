@@ -82,39 +82,22 @@ target_link_libraries(artool PRIVATE
 	${LIBELF_LIBRARY}
 )
 
-# Configure artool-config.cmake
 configure_package_config_file(
 	${CMAKE_CURRENT_SOURCE_DIR}/artool-config.cmake.in 
 	${CMAKE_CURRENT_BINARY_DIR}/artool-config.cmake 
 	INSTALL_DESTINATION share/artool/cmake
 )
 
-# Create artool-config-version.cmake
-write_basic_package_version_file(
-	${CMAKE_CURRENT_BINARY_DIR}/artool-config-version.cmake 
-	COMPATIBILITY AnyNewerVersion 
-	VERSION ${PACKAGE_VERSION}
-)
-
-# Install artool
 install(TARGETS artool 
 	EXPORT artool 
 	RUNTIME DESTINATION bin
 )
 
-# Install the artool CMake Export
 install(EXPORT artool 
 	DESTINATION share/artool/cmake
 	FILE artool-targets.cmake
 	NAMESPACE CTR::
 )
 
-# Install artool-config.cmake
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/artool-config.cmake 
-	DESTINATION share/artool/cmake
-)
-
-# Install artool-config-version.cmake
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/artool-config-version.cmake 
-	DESTINATION share/artool/cmake
-)
+	DESTINATION share/artool/cmake)
