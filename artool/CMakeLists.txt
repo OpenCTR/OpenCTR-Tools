@@ -1,26 +1,28 @@
-#########################################################################
+################################################################################
 # OpenCTR-Tools - Tools used in the OpenCTR SDK.
-# 
-# Copyright (C) 2015 The OpenCTR Project. 
-# 
-# This file is part of OpenCTR-Tools. 
-# 
-# OpenCTR-Tools is free software: you can redistribute it and/or modify 
-# it under the terms of the GNU General Public License version 3 as 
-# published by the Free Software Foundation.
-# 
-# OpenCTR-Tools is distributed in the hope that it will be useful, 
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License 
-# along with OpenCTR-Tools. If not, see <http://www.gnu.org/licenses/>. 
-#########################################################################
+#
+# Copyright (C) 2015 The OpenCTR Project.
+#
+# This file is part of OpenCTR-Tools.
+#
+# OpenCTR-Tools is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License version 3 as published by
+# the Free Software Foundation.
+#
+# OpenCTR-Tools is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with OpenCTR-Tools. If not, see <http://www.gnu.org/licenses/>.
+################################################################################
 
 include(CheckFunctionExists)
 include(CheckIncludeFile)
 include(CMakePackageConfigHelpers)
+
+project(artool)
 
 find_package(LibELF QUIET REQUIRED)
 
@@ -61,19 +63,22 @@ configure_file(
 	@ONLY
 )
 
-add_definitions(-DHAVE_CONFIG_H)
+add_executable(artool
+	src/main.c
+	${CMAKE_CURRENT_BINARY_DIR}/config.h
+)
 
-set(CMAKE_INCLUDE_CURRENT_DIR TRUE)
+target_compile_options(artool PRIVATE
+	-DHAVE_CONFIG_H
+)
 
-include_directories(
+target_include_directories(artool PRIVATE
+	${CMAKE_CURRENT_BINARY_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}
 	${LIBELF_INCLUDE_DIR}
 )
 
-add_executable(artool
-	src/main.c 
-)
-
-target_link_libraries(artool
+target_link_libraries(artool PRIVATE
 	${LIBELF_LIBRARY}
 )
 
@@ -81,7 +86,7 @@ target_link_libraries(artool
 configure_package_config_file(
 	${CMAKE_CURRENT_SOURCE_DIR}/artool-config.cmake.in 
 	${CMAKE_CURRENT_BINARY_DIR}/artool-config.cmake 
-	INSTALL_DESTINATION lib/cmake/artool
+	INSTALL_DESTINATION share/artool/cmake
 )
 
 # Create artool-config-version.cmake
@@ -99,17 +104,17 @@ install(TARGETS artool
 
 # Install the artool CMake Export
 install(EXPORT artool 
-	DESTINATION lib/cmake/artool
+	DESTINATION share/artool/cmake
 	FILE artool-targets.cmake
 	NAMESPACE CTR::
 )
 
 # Install artool-config.cmake
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/artool-config.cmake 
-	DESTINATION lib/cmake/artool
+	DESTINATION share/artool/cmake
 )
 
 # Install artool-config-version.cmake
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/artool-config-version.cmake 
-	DESTINATION lib/cmake/artool
+	DESTINATION share/artool/cmake
 )
