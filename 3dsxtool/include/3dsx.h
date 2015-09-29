@@ -23,30 +23,30 @@
 #define _3DSX_MAGIC 0x58534433 // '3DSX'
 typedef struct
 {
-	u32 magic;
-	u16 headerSize, relocHdrSize;
-	u32 formatVer;
-	u32 flags;
+    u32 magic;
+    u16 headerSize, relocHdrSize;
+    u32 formatVer;
+    u32 flags;
  
-	// Sizes of the code, rodata and data segments +
-	// size of the BSS section (uninitialized latter half of the data segment)
-	u32 codeSegSize, rodataSegSize, dataSegSize, bssSize;
+    // Sizes of the code, rodata and data segments +
+    // size of the BSS section (uninitialized latter half of the data segment)
+    u32 codeSegSize, rodataSegSize, dataSegSize, bssSize;
 } _3DSX_Header;
  
 // Relocation header: all fields (even extra unknown fields) are guaranteed to be relocation counts.
 typedef struct
 {
-	u32 cAbsolute; // # of absolute relocations (that is, fix address to post-relocation memory layout)
-	u32 cRelative; // # of cross-segment relative relocations (that is, 32bit signed offsets that need to be patched)
-	// more?
+    u32 cAbsolute; // # of absolute relocations (that is, fix address to post-relocation memory layout)
+    u32 cRelative; // # of cross-segment relative relocations (that is, 32bit signed offsets that need to be patched)
+    // more?
  
-	// Relocations are written in this order:
-	// - Absolute relocs
-	// - Relative relocs
+    // Relocations are written in this order:
+    // - Absolute relocs
+    // - Relative relocs
 } _3DSX_RelocHdr;
  
 // Relocation entry: from the current pointer, skip X words and patch Y words
 typedef struct
 {
-	u16 skip, patch;
+    u16 skip, patch;
 } _3DSX_Reloc;

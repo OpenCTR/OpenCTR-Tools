@@ -20,22 +20,21 @@
 
 include(CheckFunctionExists)
 include(CheckIncludeFile)
-include(CMakePackageConfigHelpers)
 
 project(artool)
 
 find_package(LibELF QUIET REQUIRED)
 
 if(LIBELF_FOUND)
-	set(HAVE_LIBELF_H TRUE)
+    set(HAVE_LIBELF_H TRUE)
 endif()
 
 if(LIBELF_HAVE_GELF)
-	set(HAVE_GELF_H TRUE)
+    set(HAVE_GELF_H TRUE)
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-	set(DEBUG TRUE)
+    set(DEBUG TRUE)
 endif()
 
 check_include_file("assert.h" HAVE_ASSERT_H)
@@ -58,46 +57,40 @@ set(PACKAGE_DESCRIPTION "Convert resource files into ARM resources.")
 set(PACKAGE_VERSION 1.0.0)
 
 configure_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/config.h.in
-	${CMAKE_CURRENT_BINARY_DIR}/config.h
-	@ONLY
+    ${CMAKE_CURRENT_SOURCE_DIR}/config.h.in
+    ${CMAKE_CURRENT_BINARY_DIR}/config.h
+    @ONLY
 )
 
 add_executable(artool
-	src/main.c
-	${CMAKE_CURRENT_BINARY_DIR}/config.h
+    src/main.c
+    ${CMAKE_CURRENT_BINARY_DIR}/config.h
 )
 
 target_compile_options(artool PRIVATE
-	-DHAVE_CONFIG_H
+    -DHAVE_CONFIG_H
 )
 
 target_include_directories(artool PRIVATE
-	${CMAKE_CURRENT_BINARY_DIR}
-	${CMAKE_CURRENT_SOURCE_DIR}
-	${LIBELF_INCLUDE_DIR}
+    ${CMAKE_CURRENT_BINARY_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${LIBELF_INCLUDE_DIR}
 )
 
 target_link_libraries(artool PRIVATE
-	${LIBELF_LIBRARY}
+    ${LIBELF_LIBRARY}
 )
 
-configure_package_config_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/artool-config.cmake.in 
-	${CMAKE_CURRENT_BINARY_DIR}/artool-config.cmake 
-	INSTALL_DESTINATION share/artool/cmake
+install(TARGETS artool
+    EXPORT artool
+    RUNTIME DESTINATION bin
 )
 
-install(TARGETS artool 
-	EXPORT artool 
-	RUNTIME DESTINATION bin
+install(EXPORT artool
+    DESTINATION share/artool/cmake
+    FILE artool-targets.cmake
+    NAMESPACE CTR::
 )
 
-install(EXPORT artool 
-	DESTINATION share/artool/cmake
-	FILE artool-targets.cmake
-	NAMESPACE CTR::
-)
-
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/artool-config.cmake 
-	DESTINATION share/artool/cmake)
+install(FILES artool-config.cmake
+    DESTINATION share/artool/cmake)

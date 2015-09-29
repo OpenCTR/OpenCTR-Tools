@@ -1,0 +1,39 @@
+# EditorConfig
+#
+# EditorConfig helps developers define and maintain consistent coding styles
+# between different editors and IDEs.
+#
+# Read more at http://editorconfig.org/
+
+# Top-most .editorconfig file.
+root = true
+
+# Google C++ Style
+[*.{c,cpp,cxx,h,hxx,hpp}]
+charset = utf-8
+indent_style = space
+indent_size = 4
+tab_width = 4
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 80
+quote_type = single
+c_include_path = include
+curly_bracket_next_line = false
+spaces_around_operators = true
+space_after_control_statements = true
+spaces_in_brackets = false
+
+# Docutils Standard
+[**.rst]
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 3
+
+# No Standard.
+[**.yml, **.css, **.html, **.md]
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
